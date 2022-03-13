@@ -1,4 +1,6 @@
 ﻿#include <iostream>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -27,10 +29,35 @@ int simpleNumCount(int fnum, int lnum) {
        }
         if (isSimple) { buffer[count] = i; count++; }
     }
-
     return count;
 }
 int main()
 {
-    cout << simpleNumCount(2, 100000);
+    setlocale(LC_ALL, "ru");
+    int fnum = 0;
+    int lnum = 0;
+    string infName = "in.txt";
+    string outfName = "out.txt";
+
+    ifstream fin;
+    fin.open(infName);
+    if (fin.is_open()) {
+        cout << "Файл открыт" << endl;
+        fin >> fnum;
+        fin >> lnum;
+    }
+    else {
+        cout << "Ошибка открытия файла" << endl;
+    }
+    fin.close();
+
+    ofstream fout;
+    fout.open(outfName);
+    if (fout.is_open()) {
+        fout << simpleNumCount(fnum, lnum);;
+    }
+    else {
+        cout << "Ошибка открытия файла" << endl;
+    }
+    fout.close();
 }
